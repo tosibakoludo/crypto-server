@@ -40,10 +40,10 @@ const createEntry = asyncHandler(async (req, res) => {
     }
 
     const entry = await Entry.create({
+        user: req.user.id,
         coin,
         price,
         amount,
-        user: req.user.id,
         status: 'buy',
     });
 
@@ -130,7 +130,7 @@ const updateEntry = asyncHandler(async (req, res) => {
         throw new Error('Not Authorized');
     }
 
-    const updatedEntry = await Entry.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    const updatedEntry = await Entry.findByIdAndUpdate(req.params.id, req.body, { sell: true })
 
     res.status(200).json(updatedEntry);
 });
